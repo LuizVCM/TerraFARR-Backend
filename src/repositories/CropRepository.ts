@@ -9,7 +9,7 @@ interface CropData {
   variedade: string | null | undefined;
   areaM2: number;
   unidadeArea: AreaUnit;
-  dataPlantio: Date | null | undefined;
+  dataPlantio: string | null | undefined;
   responsavel: string | null | undefined;
   status: CropStatus;
   observacoes: string | null | undefined;

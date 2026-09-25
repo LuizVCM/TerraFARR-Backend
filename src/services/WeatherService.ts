@@ -60,7 +60,7 @@ export class WeatherService {
     }
     const conflict = await this.repo.findConflicts(territoryId);
     if (conflict) {
-      throw new ConflictError(["data"], "Já poosui registro para o dia atual");
+      throw new ConflictError({fields:["data"], message: "Já poosui registro para o dia atual"});
     }
     AuthorizationService.ensureOwnership(territory, loggedUserId, "território");
     const weatherData = {

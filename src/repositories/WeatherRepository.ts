@@ -20,7 +20,7 @@ export class WeatherRepository {
   async findConflicts(territoryId: number) {
     const date = formateDateToString(new Date());
     return await this.base.findOne({
-      where: { territorio: { id: territoryId }, data: date },
+      where: { territorio: { id: territoryId }, data: date! },
     });
   }
   async findByIdWithTeritory(id: number) {
@@ -37,7 +37,7 @@ export class WeatherRepository {
   async findAllByUserId(userId: number) {
     return this.base
       .getRepository()
-      .find({ where: { territorio: { usuario: { id: userId } } } });
+      .find({ where: { territorio: { usuario: { id: userId } } }, relations: { territorio: true } });
   }
   async create(data: WeatherData, territory: Territory): Promise<Weather> {
     const weather = this.base.create({ ...data, territorio: territory });

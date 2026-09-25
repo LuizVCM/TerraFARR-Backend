@@ -34,7 +34,11 @@ export const updateCropSchema = z
       .min(3, "Nome é muito curto")
       .max(100, "Nome é muito longo")
       .optional(),
-    sementeId: z.coerce.number("ID inválido").positive("ID inválido"),
+    sementeId: z.coerce
+      .number("ID inválido")
+      .positive("ID inválido")
+      .nullable()
+      .optional(),
     variedade: z
       .string()
       .max(100, "Variedade é muita longa")
@@ -46,6 +50,11 @@ export const updateCropSchema = z
       .optional(),
     unidadeArea: z.enum(AreaUnit, "Unidade de área inválida").optional(),
     dataPlantio: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/, "Data deve estar no formato YYYY-MM-DD")
+      .nullable()
+      .optional(),
+    dataColheitaReal: z
       .string()
       .regex(/^\d{4}-\d{2}-\d{2}$/, "Data deve estar no formato YYYY-MM-DD")
       .nullable()

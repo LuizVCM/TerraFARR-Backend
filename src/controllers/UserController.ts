@@ -63,7 +63,7 @@ export class UserController {
     try {
       const id = req.user!.id;
       await this.userService.delete(id);
-      return res.status(204).send();
+      return res.sendStatus(204);
     } catch (error) {
       next(error);
     }

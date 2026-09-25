@@ -63,7 +63,7 @@ export class UserService {
       if (alreadyInUse.telefone) fields.push("telefone");
       if (alreadyInUse.email) fields.push("e-mail");
       if (fields.length > 0) {
-        throw new ConflictError(fields);
+        throw new ConflictError({ fields: fields });
       }
     }
     const passHash = await bcrypt.hash(data.senha, 10);
@@ -126,7 +126,7 @@ export class UserService {
   async createAdmin(data: CreateAdminDTO) {
     const existingUser = await this.repo.findByEmail(data.email);
     if (existingUser) {
-      throw new ConflictError(["e-mail"]);
+      throw new ConflictError({ fields: ["e-mail"] });
     }
     const adminExists = await this.repo.existsByRole(UserRole.ADMIN);
     if (adminExists) {

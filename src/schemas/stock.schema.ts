@@ -9,13 +9,14 @@ export const createStockSchema = z.object({
   categoria: z.enum(StockCategory, "Tipo de categoria inválido"),
   quantidade: z.coerce
     .number("A quantidade deve ser um número")
-    .positive("A quantidade deve ser positiva"),
+    .nonnegative("A quantidade deve ser positiva"),
   unidade: z.enum(StockUnit, "Tipo de unidade inválido"),
   dataValidade: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, "Data deve estar no formato YYYY-MM-DD")
     .nullable()
     .optional(),
+  limiteMinimo: z.number().positive().nullable().optional(),
 });
 export const updateStockSchema = createStockSchema.partial();
 export type CreateStockDTO = z.infer<typeof createStockSchema>;

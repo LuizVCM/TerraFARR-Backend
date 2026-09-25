@@ -1,18 +1,32 @@
 import { AppError } from "./AppError";
+
+type ConflictErrorParams = {
+  fields?: string[];
+  info?: string;
+  message?: string;
+};
+
 export class ConflictError extends AppError {
-  constructor(readonly fields: string[], readonly info?: string) {
+  readonly fields: string[];
+  readonly info?: string;
+
+  constructor({ fields = [], message, info}: ConflictErrorParams = {}) {
     super(
-      fields.length > 1
-        ? `Os seguintes campos já estão em uso: ${fields.join(", ")}`
-        : `O seguinte campo já está em uso: ${fields[0]}`,
+      message ??
+        (fields.length > 1
+          ? `Os seguintes campos já estão em uso: ${fields.join(", ")}`
+          : `O seguinte campo já está em uso: ${fields[0]}`),
       409,
     );
+    this.fields = fields;
+    this.info = info;
   }
+
   override toJSON() {
     return {
       ...super.toJSON(),
       fields: this.fields,
-      info: this.info
+      info: this.info,
     };
   }
 }

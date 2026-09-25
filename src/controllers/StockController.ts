@@ -61,7 +61,7 @@ export class StockController {
       const id = Number(req.params.id);
       const loggedUser = req.user!.id;
       await this.stockService.delete(id, loggedUser);
-      return res.status(204).send();
+      return res.sendStatus(204);
     } catch (error) {
       next(error);
     }

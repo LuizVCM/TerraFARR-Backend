@@ -1,3 +1,4 @@
+import { ConflictError } from "../errors/ConflictError";
 import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { SeedMapper } from "../mappers/SeedMapper";
@@ -63,6 +64,13 @@ export class SeedService {
       throw new NotFoundError("semente");
     }
     AuthorizationService.ensureOwnership(seed, loggedUserId, "semente");
+    if (seed.plantacao) {
+      throw new ConflictError({
+        fields: ["semente"],
+        info: "Não é possível excluir uma semente que está reservada para uma plantação",
+        message: "Não é possível excluir uma semente que está reservada para uma plantação",
+      });
+    }
     const result = await this.repo.base.softDelete(id);
     if (result.affected === 0) {
       throw new InternalServerError("Não foi possível deletar");

@@ -65,7 +65,7 @@ export class CropController {
       const id = Number(req.params.id);
       const loggedUser = req.user!.id;
       await this.cropService.delete(id, loggedUser);
-      return res.status(200).send();
+      return res.sendStatus(204);
     } catch (error) {
       next(error);
     }

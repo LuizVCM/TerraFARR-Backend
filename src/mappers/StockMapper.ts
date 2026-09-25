@@ -8,6 +8,8 @@ export class StockMapper {
       nome: stock.nome,
       quantidade: stock.quantidade,
       unidade: stock.unidade,
+      categoria: stock.categoria,
+      limiteMinimo: stock.limiteMinimo ?? null,
       dataValidade: stock.dataValidade,
       usuario: stock.usuario
         ? UserMapper.toSummaryResponse(stock.usuario)
@@ -20,6 +22,7 @@ export class StockMapper {
       nome: stock.nome,
       quantidade: stock.quantidade,
       unidade: stock.unidade,
+      categoria: stock.categoria,
       dataValidade: stock.dataValidade,
     };
   }

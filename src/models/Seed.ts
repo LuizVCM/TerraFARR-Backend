@@ -25,8 +25,8 @@ export class Seed extends BaseModel {
   fornecedor: string | null;
   @Column({ type: "text", nullable: true })
   observacoes: string | null;
-  @OneToOne(() => Crop, (plantacao) => plantacao.sementes)
-  plantacao: Crop;
+  @OneToOne(() => Crop, (plantacao) => plantacao.sementes, { nullable: true })
+  plantacao: Crop | null;
   @ManyToOne(() => User, (usuario) => usuario.sementes)
   usuario: User;
   @ManyToOne(() => Plant, (planta) => planta.sementes)
